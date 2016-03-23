@@ -1,0 +1,16 @@
+{
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "discussion_board",
+  "version": "1.0.0",
+  "description": "full mean project to start",
+  "main": "server.js",
+  "author": "amrita",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "express": "^4.13.4",
+    "mongoose": "^4.4.8"
+  }
+}
