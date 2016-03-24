@@ -1,0 +1,12 @@
+<div ng-controller="usersController">
+	<h1>Login</h1>
+
+	<h3>Please enter your name below to share your coding struggles and provide your wisdom.</h3>
+
+	<form class ="col-md-4">
+	  <div class="form-group">
+	  	<input type="text" class="form-control" id="email" ng-model = "newUser.name">
+	  </div>
+	  <button type="submit" class="btn btn-primary" ng-Click = "addUser()">Submit</button>
+	</form>
+</div>

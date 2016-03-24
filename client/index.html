@@ -1,0 +1,116 @@
+<html ng-app = "myApp">
+	<head>
+
+	    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+	    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular-route.min.js"></script>
+
+	     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+	    <script>
+
+	    	var myAppDB = angular.module('myApp', ['ngRoute']);
+	    	myAppDB.config(function ($routeProvider) {
+		     $routeProvider
+		        .when('/',{
+		            templateUrl: 'partials/login.html'
+		        })
+		         .when('/user',{
+		            templateUrl: 'partials/profile.html'
+		        })
+		         .when('/topics',{
+		            templateUrl: 'partials/topic.html'
+		        })
+		         .when('/dashboard',{
+		            templateUrl: 'partials/dashboard.html'
+		        })
+		        .otherwise({
+		          redirectTo: '/'
+		        });
+		      });
+
+
+	    	myAppDB.factory('userFactory',function (){
+	    		var users = []
+	    		var factory = {}
+
+	    		factory.getUsers = function (callback){
+	    			callback(users)
+	    		}
+	    		factory.createUser = function(user){
+	    			users.push(user)
+	    			console.log(user.name + " in factory")
+	    		}
+	    		return factory;
+	    	})
+
+	    	myAppDB.factory('topicFactory',function (){
+	    		var topics = []
+	    		var factory = {}
+
+	    		factory.getTopics = function (callback){
+	    			callback(topics)
+	    		}
+	    		factory.createTopic = function (topic,callback){
+	    			// topics.push(topic)
+	    			$http.post('/createtopic', topic).success(function(output){
+	    				factory.getTopics(callback)
+	    				callback(topic)
+	    			})
+	    		}
+	    		return factory;
+	    	})	    	
+
+	    	myAppDB.controller('usersController', function($scope, $location, userFactory){
+	    		$scope.users = [];
+
+	    		console.log("users controller")
+	    		userFactory.getUsers(function(data){
+	    			$scope.users = data
+	    			console.log("inside controller and getuser")
+	    		})
+
+	    		$scope.addUser = function(data){
+	    			console.log("in addUser")
+	    			userFactory.createUser($scope.newUser);
+	    				$scope.newUser = {};
+	    				$location.path('/dashboard')
+	    		}
+
+	    	})
+
+	    	myAppDB.controller('topicsController', function($scope, $location, userFactory, topicFactory){
+	    		$scope.topics = [];
+	    		$scope.users = [];
+
+	    		console.log("topics controller")
+
+	    		userFactory.getUsers(function(data){
+	    			$scope.users = data
+	    			console.log("inside topics controller and getuser" + data[0].name)
+	    			$scope.current_user = data[0].name
+	    		})
+	    		// userFactory.getTopics(function(data){
+	    		// 	console.log("inside controller and gettopics")
+	    		// 	$scope.users = data
+	    		// })
+
+	    		$scope.addTopic = function(data){
+	    			console.log("in addTopic" + $scope.newTopic.category)
+	    			topicFactory.createTopic($scope.newTopic);
+	    				console.log($scope.newTopic)
+	    				$scope.newTopic = {};
+	    		}
+
+	    	})
+
+	    </script>
+	</head>
+	<body>
+		<div class = "container">
+			<div ng-view="">
+				<h1>Hello</h1>
+        	</div>
+		</div>
+	</body>
+</html>

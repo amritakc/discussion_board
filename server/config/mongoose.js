@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var fs = require('fs');
-//Insert DB Name
-mongoose.connect('mongodb://localhost/Insert_DataBaseName');
+
+mongoose.connect('mongodb://localhost/FullMean_DiscussionBoard');
 
 var models_path = __dirname + '/../models'
 

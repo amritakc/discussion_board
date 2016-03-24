@@ -1,0 +1,21 @@
+<div ng-controller="topicsController">
+	<h1>Welcome, {{current_user}}</h1>
+	<h1>Add a new Struggle</h1>
+	<form class ="col-md-4">
+		  <div class="form-group">
+		  	Topic: <input type="text" class="form-control" id="name" ng-model = "newTopic.name">
+		  </div>
+		  <div class="form-group">
+		  	Description: <input type="text" class="form-control" id="description" ng-model = "newTopic.description">
+		  </div>
+		  <input type="hidden" class="form-control" id="description" ng-value = "newTopic.user_name=current_user" >
+		  Category:
+		  <select ng-model = "newTopic.category">
+	            <option>Python</option>
+	            <option>Ruby</option>
+	            <option>JavaScript</option>
+	            <option>Other</option>
+	        </select>
+		  <button type="submit" class="btn btn-primary" ng-Click = "addTopic()">Submit</button>
+	</form>
+</div>
