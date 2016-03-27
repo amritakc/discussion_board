@@ -18,7 +18,7 @@
 		         .when('/user',{
 		            templateUrl: 'partials/profile.html'
 		        })
-		         .when('/topics',{
+		         .when('/topic/:id',{
 		            templateUrl: 'partials/topic.html'
 		        })
 		         .when('/dashboard',{
@@ -56,8 +56,13 @@
 	    			callback(topics)
 	    		}
 	    		factory.createTopic = function (topic,callback){
-	    			// topics.push(topic)
 	    			$http.post('/createtopic', topic).success(function(output){
+	    				callback(output)
+	    			})
+	    		}
+	    		factory.showTopic = function (id, callback){
+	    			console.log("in show topic in factory" + id)
+	    			$http.get('/show/'+ id).success(function(output){
 	    				callback(output)
 	    			})
 	    		}
@@ -66,15 +71,11 @@
 
 	    	myAppDB.controller('usersController', function($scope, $location, userFactory){
 	    		$scope.users = [];
-
-	    		console.log("users controller")
 	    		userFactory.getUsers(function(data){
 	    			$scope.users = data
-	    			console.log("inside controller and getuser")
 	    		})
 
 	    		$scope.addUser = function(data){
-	    			console.log("in addUser")
 	    			userFactory.createUser($scope.newUser);
 	    				$scope.newUser = {};
 	    				$location.path('/dashboard')
@@ -90,7 +91,6 @@
 
 	    		userFactory.getUsers(function(data){
 	    			$scope.users = data
-	    			console.log("inside topics controller and getuser" + data[0].name)
 	    			$scope.current_user = data[0].name
 	    		})
 
@@ -107,6 +107,24 @@
 	    				})
 	    			});
 	    		}
+
+	    	})
+	    	myAppDB.controller('discussionsController', function($scope, $location, $routeParams, userFactory, topicFactory){
+	    		$scope.users = [];
+	    		$scope.topics = [];
+	    		$scope.discussions = []
+
+	    		userFactory.getUsers(function(data){
+	    			$scope.users = data
+	    		})
+	    		topicFactory.getTopics(function(data){
+	    			$scope.topics = data;
+	    		})
+	    		topicFactory.showTopic($routeParams.id, function(data){
+	    			$scope.discussions = data;
+	    			console.log("in discussions controller")
+	    		})
+
 
 	    	})
 

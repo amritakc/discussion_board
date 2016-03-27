@@ -8,4 +8,7 @@ module.exports = function(app){
 	app.post('/createtopic', function(req,res){
 		topics.create(req,res)
 	})
+	app.get('/show/:id', function(req,res){
+		topics.show(req,res)
+	})
 };

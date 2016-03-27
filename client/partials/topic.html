@@ -1,0 +1,16 @@
+<div ng-controller="discussionsController">
+
+	<div ng-repeat = "dis in discussions">
+		<h1>{{dis.user_name}} posted a topic:</h1>
+		<h3>{{dis.title}}</h3>
+		<p>Description: {{dis.description}}</p>
+	</div>
+
+	<form>
+		<div class = "form-group">
+			<label for="answer">Answer:</label>
+			<input type = "text" class = "form-control" rows = "5" ng-model = "newAnswer.answer">
+		</div>
+	</form>
+	
+</div>

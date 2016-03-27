@@ -5,6 +5,7 @@ var TopicSchema = new mongoose.Schema({
   description: String,
   user_name: String,
   category: String,
+  posts: {type: Number, default: 1},
   created_at: {type: Date, default: new Date}
 });
 

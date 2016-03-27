@@ -34,7 +34,7 @@
 		    <tbody>
 		      <tr ng-repeat = "topic in topics">
 		        <td>{{topic.category}}</td>
-		        <td>{{topic.title}}</td>
+		        <td><a href = "/#/topic/{{topic._id}}">{{topic.title}}</a></td>
 		        <td>{{topic.user_name}}</td>
 		        <td>Post Number</td>
 		      </tr>
