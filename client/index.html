@@ -44,18 +44,21 @@
 	    		return factory;
 	    	})
 
-	    	myAppDB.factory('topicFactory',function (){
+	    	myAppDB.factory('topicFactory',function ($http){
 	    		var topics = []
 	    		var factory = {}
 
 	    		factory.getTopics = function (callback){
+	    			$http.get('/topics').success(function(output){
+	    				topics = output;
+	    				callback(topics);
+	    			})
 	    			callback(topics)
 	    		}
 	    		factory.createTopic = function (topic,callback){
 	    			// topics.push(topic)
 	    			$http.post('/createtopic', topic).success(function(output){
-	    				factory.getTopics(callback)
-	    				callback(topic)
+	    				callback(output)
 	    			})
 	    		}
 	    		return factory;
@@ -90,16 +93,19 @@
 	    			console.log("inside topics controller and getuser" + data[0].name)
 	    			$scope.current_user = data[0].name
 	    		})
-	    		// userFactory.getTopics(function(data){
-	    		// 	console.log("inside controller and gettopics")
-	    		// 	$scope.users = data
-	    		// })
+
+	    		topicFactory.getTopics(function(data){
+	    			$scope.topics = data;
+
+	    		})
 
 	    		$scope.addTopic = function(data){
-	    			console.log("in addTopic" + $scope.newTopic.category)
-	    			topicFactory.createTopic($scope.newTopic);
-	    				console.log($scope.newTopic)
-	    				$scope.newTopic = {};
+	    			topicFactory.createTopic($scope.newTopic, function(data){
+	    				topicFactory.getTopics(function(data){
+	    					$scope.newTopic = {};
+	    					$scope.topics = data;
+	    				})
+	    			});
 	    		}
 
 	    	})
