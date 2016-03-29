@@ -61,13 +61,27 @@
 	    			})
 	    		}
 	    		factory.showTopic = function (id, callback){
-	    			console.log("in show topic in factory" + id)
 	    			$http.get('/show/'+ id).success(function(output){
 	    				callback(output)
 	    			})
 	    		}
 	    		return factory;
-	    	})	    	
+	    	})	  
+
+	    	myAppDB.factory('answerFactory',function ($http){
+	    		var answers = []
+	    		var factory = {}
+
+	    		// factory.getAnswers = function (callback){
+	    		// 	callback(answers)
+	    		// }
+	    		factory.createAnswer = function (answer,callback){
+	    			$http.post('/createanswer', answer).success(function(output){
+	    				callback(output)
+	    			})
+	    		}
+	    		return factory;
+	    	})  	
 
 	    	myAppDB.controller('usersController', function($scope, $location, userFactory){
 	    		$scope.users = [];
@@ -109,21 +123,31 @@
 	    		}
 
 	    	})
-	    	myAppDB.controller('discussionsController', function($scope, $location, $routeParams, userFactory, topicFactory){
+	    	myAppDB.controller('discussionsController', function($scope, $location, $routeParams, userFactory, topicFactory, answerFactory){
 	    		$scope.users = [];
 	    		$scope.topics = [];
-	    		$scope.discussions = []
+	    		$scope.discussions = [];
+	    		$scope.answers = [];
 
 	    		userFactory.getUsers(function(data){
 	    			$scope.users = data
+	    			$scope.current_user = data[0].name
 	    		})
 	    		topicFactory.getTopics(function(data){
 	    			$scope.topics = data;
 	    		})
 	    		topicFactory.showTopic($routeParams.id, function(data){
 	    			$scope.discussions = data;
-	    			console.log("in discussions controller")
 	    		})
+	    		$scope.addAnswer = function(data){
+	    			console.log($scope.newAnswer)
+	    			answerFactory.createAnswer($scope.newAnswer, function(data){
+	    				// answerFactory.getAnswers(function(data){
+	    				// 	$scope.newAnswer = {};
+	    				// 	$scope.answers = data;
+	    				// })
+	    			});
+	    		}
 
 
 	    	})

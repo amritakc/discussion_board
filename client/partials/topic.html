@@ -6,11 +6,15 @@
 		<p>Description: {{dis.description}}</p>
 	</div>
 
-	<form>
-		<div class = "form-group">
-			<label for="answer">Answer:</label>
-			<input type = "text" class = "form-control" rows = "5" ng-model = "newAnswer.answer">
-		</div>
-	</form>
+		<form>
+			<div class = "form-group col-md-4">
+				<input type="hidden" class="form-control" ng-value = "newAnswer.comment=discussions[0]._id" >
+				<input type="hidden" class="form-control" ng-value = "newAnswer.user_name=current_user" >
+				<label for="answer">Answer:</label>
+				<p><input type = "text" class = "form-control" rows = "5" ng-model = "newAnswer.answer"></p>
+				<button type="submit" class="btn btn-primary" ng-Click = "addAnswer()">Submit</button>
+			</div>
+		</form>
+
 	
 </div>

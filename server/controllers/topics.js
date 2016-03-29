@@ -1,14 +1,16 @@
 var mongoose = require('mongoose');
 var Topic = mongoose.model('Topic');
+var Answer = mongoose.model('Answer');
 
 
 module.exports = (function() {
  return {
    index: function(req,res){
-   		Topic.find({}, function (err, results){
+   		Topic.find({}).populate('answers').exec(function (err, results){
    			if(err) {
 	         	console.log(err);
 	       	} else {
+	       		console.log(results)
 	         	res.json(results);
 	       }
    	    })
@@ -24,7 +26,6 @@ module.exports = (function() {
    	    })
     },
    create: function(req, res){
-   		console.log("in create")
 	  	var topic = new Topic({title:req.body.title, description: req.body.description, user_name:req.body.user_name, category:req.body.category})
 	  	topic.save(function(err,results){
 	  		if(err){

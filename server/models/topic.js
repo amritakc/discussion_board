@@ -1,11 +1,12 @@
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema
 
 var TopicSchema = new mongoose.Schema({
   title: String,
   description: String,
   user_name: String,
   category: String,
-  posts: {type: Number, default: 1},
+  answers: [{type: Schema.Types.ObjectId, ref:'Answer'}], 
   created_at: {type: Date, default: new Date}
 });
 

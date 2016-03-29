@@ -1,5 +1,5 @@
 var topics = require('./../controllers/topics.js')
-
+var answers = require('./../controllers/answers.js')
 
 module.exports = function(app){
 	app.get('/topics', function(req,res){
@@ -10,5 +10,8 @@ module.exports = function(app){
 	})
 	app.get('/show/:id', function(req,res){
 		topics.show(req,res)
+	})
+	app.post('/createanswer', function(req,res){
+		answers.create(req,res)
 	})
 };
