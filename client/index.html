@@ -72,9 +72,11 @@
 	    		var answers = []
 	    		var factory = {}
 
-	    		// factory.getAnswers = function (callback){
-	    		// 	callback(answers)
-	    		// }
+	    		factory.getAnswers = function (callback){
+	    			$http.get('/answers').success(function(output){
+	    				answers = output
+	    				callback(answers)
+	    		}
 	    		factory.createAnswer = function (answer,callback){
 	    			$http.post('/createanswer', answer).success(function(output){
 	    				callback(output)
