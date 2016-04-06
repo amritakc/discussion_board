@@ -4,17 +4,27 @@
 		<h1>{{dis.user_name}} posted a topic:</h1>
 		<h3>{{dis.title}}</h3>
 		<p>Description: {{dis.description}}</p>
+		<h2>Post your answer wisdom here...</h2>
+	</div>	
+
+	<form>
+		<div class = "form-group col-md-4">
+			<input type="hidden" class="form-control" ng-value = "newAnswer.comment=discussions[0]._id" >
+			<input type="hidden" class="form-control" ng-value = "newAnswer.user_name=current_user" >
+			<label for="answer">Answer:</label>
+			<p><input type = "text" class = "form-control" rows = "5" ng-model = "newAnswer.answer"></p>
+			<button type="submit" class="btn btn-primary" ng-Click = "addAnswer()">Answer</button>
+		</div>
+	</form>
+	
+	<div ng-repeat = "dis in discussions">
+		<div ng-repeat = "x in dis.answers">
+			<h6>{{x.user_name}}: {{x.text}}</h6>
+		</div>
 	</div>
 
-		<form>
-			<div class = "form-group col-md-4">
-				<input type="hidden" class="form-control" ng-value = "newAnswer.comment=discussions[0]._id" >
-				<input type="hidden" class="form-control" ng-value = "newAnswer.user_name=current_user" >
-				<label for="answer">Answer:</label>
-				<p><input type = "text" class = "form-control" rows = "5" ng-model = "newAnswer.answer"></p>
-				<button type="submit" class="btn btn-primary" ng-Click = "addAnswer()">Submit</button>
-			</div>
-		</form>
+	
+
 
 	
 </div>

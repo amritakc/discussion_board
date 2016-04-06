@@ -6,21 +6,21 @@ var Answer = mongoose.model('Answer');
 module.exports = (function() {
  return {
    index: function(req,res){
-   		Topic.find({}).populate('answers').exec(function (err, results){
+   		Topic.find({}, function (err, results){
    			if(err) {
 	         	console.log(err);
 	       	} else {
-	       		console.log(results)
+	       		// console.log(results)
 	         	res.json(results);
 	       }
    	    })
     },
     show: function(req,res){
-   		Topic.find({_id:req.params.id}, function (err, results){
+   		Topic.find({_id:req.params.id}).populate('answers').exec(function (err, results){
    			if(err) {
 	         	console.log(err);
 	       	} else {
-	       		console.log("found the topic!")
+	       		// console.log("found the topic!")
 	         	res.json(results);
 	       }
    	    })
@@ -32,7 +32,7 @@ module.exports = (function() {
 	  			console.log("something went wrong" + results.message)
 	  		}
 	  		else{
-	  			console.log("successfully add a topic!" + topic.title)
+	  			// console.log("successfully add a topic!" + topic.title)
 	  			res.json(results)
 	  		}
 	  	 })

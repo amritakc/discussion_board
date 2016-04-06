@@ -76,8 +76,10 @@
 	    			$http.get('/answers').success(function(output){
 	    				answers = output
 	    				callback(answers)
+	    			})
 	    		}
 	    		factory.createAnswer = function (answer,callback){
+	    			console.log(answer)
 	    			$http.post('/createanswer', answer).success(function(output){
 	    				callback(output)
 	    			})
@@ -136,14 +138,24 @@
 	    			$scope.current_user = data[0].name
 	    		})
 	    		topicFactory.getTopics(function(data){
+	    			// console.log(data)
 	    			$scope.topics = data;
 	    		})
 	    		topicFactory.showTopic($routeParams.id, function(data){
 	    			$scope.discussions = data;
+	    			console.log(data)
 	    		})
-	    		$scope.addAnswer = function(data){
+	    		$scope.addAnswer = function(){
+	    			console.log("in addanswer in discussionsController")
 	    			console.log($scope.newAnswer)
+
 	    			answerFactory.createAnswer($scope.newAnswer, function(data){
+	  						// console.log("After request http")
+		    		topicFactory.showTopic($routeParams.id, function(data){
+		    				$scope.discussions = data;
+		    				// console.log(data)
+		    				$scope.newAnswer= {};
+		    			})
 	    				// answerFactory.getAnswers(function(data){
 	    				// 	$scope.newAnswer = {};
 	    				// 	$scope.answers = data;
