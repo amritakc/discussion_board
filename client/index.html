@@ -78,9 +78,17 @@
 	    				callback(answers)
 	    			})
 	    		}
+
 	    		factory.createAnswer = function (answer,callback){
 	    			console.log(answer)
 	    			$http.post('/createanswer', answer).success(function(output){
+	    				callback(output)
+	    			})
+	    		}
+
+	    		factory.likeAnswer = function (like,callback){
+	    			console.log(like)
+	    			$http.post('/createlike', like).success(function(output){
 	    				callback(output)
 	    			})
 	    		}
@@ -105,7 +113,7 @@
 	    		$scope.topics = [];
 	    		$scope.users = [];
 
-	    		console.log("topics controller")
+	    		// console.log("topics controller")
 
 	    		userFactory.getUsers(function(data){
 	    			$scope.users = data
@@ -146,24 +154,21 @@
 	    			console.log(data)
 	    		})
 	    		$scope.addAnswer = function(){
-	    			console.log("in addanswer in discussionsController")
-	    			console.log($scope.newAnswer)
-
 	    			answerFactory.createAnswer($scope.newAnswer, function(data){
-	  						// console.log("After request http")
 		    		topicFactory.showTopic($routeParams.id, function(data){
 		    				$scope.discussions = data;
-		    				// console.log(data)
 		    				$scope.newAnswer= {};
 		    			})
-	    				// answerFactory.getAnswers(function(data){
-	    				// 	$scope.newAnswer = {};
-	    				// 	$scope.answers = data;
-	    				// })
 	    			});
 	    		}
-
-
+	    		$scope.addLike = function(){
+	    			answerFactory.likeAnswer($scope.newAnswer, function(data){
+		    			topicFactory.showTopic($routeParams.id, function(data){
+		    				$scope.discussions = data;
+		    				$scope.newAnswer= {};
+		    			})
+	    			});
+	    		}
 	    	})
 
 	    </script>

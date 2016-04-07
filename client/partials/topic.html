@@ -4,7 +4,7 @@
 		<h1>{{dis.user_name}} posted a topic:</h1>
 		<h3>{{dis.title}}</h3>
 		<p>Description: {{dis.description}}</p>
-		<h2>Post your answer wisdom here...</h2>
+		<h2>Post your wisdom here...</h2>
 	</div>	
 
 	<form>
@@ -16,10 +16,18 @@
 			<button type="submit" class="btn btn-primary" ng-Click = "addAnswer()">Answer</button>
 		</div>
 	</form>
-	
+
 	<div ng-repeat = "dis in discussions">
 		<div ng-repeat = "x in dis.answers">
 			<h6>{{x.user_name}}: {{x.text}}</h6>
+					<form>
+						<input type="hidden" class="form-control" ng-value = "newAnswer.answerid=x._id" >
+						<input type = "hidden" class = "form-control" ng-value = "newAnswer.arrow ='like'">
+						<button type="submit" class="btn btn-primary" ng-Click = "addLike()">Like</button>
+					</form>
+
+			<p>Dislikes:{{x.num_dislike}}|| Number of likes:{{x.num_like}}</p>
+
 		</div>
 	</div>
 

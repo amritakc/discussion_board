@@ -6,9 +6,7 @@ var Topic = mongoose.model('Topic');
 module.exports = (function() {
  return {
    create: function(req, res){
-   		// console.log(req.body.comment)
    		Topic.findOne({_id:req.body.comment}, function(err,topic){
-	   		// console.log("in create" + topic._id)
 		  	var new_answer = new Answer({text:req.body.answer, user_name:req.body.user_name})
 		  	new_answer._topic = topic._id;
 		  	topic.answers.push(new_answer)
@@ -27,5 +25,23 @@ module.exports = (function() {
 		 	})
 	  	})
   	  },
+  	like: function(req, res){
+   		console.log(req.body.answerid)
+   		Answer.update({_id:req.body.answerid}, {$inc: {num_like:1}, arrow:req.body.arrow}, function(err,results){
+		  		if(err){
+		  			console.log("something went wrong")
+		  		}
+		  		else{
+		  			console.log("successfully added a like!")
+		  			console.log(results)
+		  			res.json(results)
+		  			}
+			  	})
+  	  		},
+
+
+
+
+
 	}	
 })(); 
