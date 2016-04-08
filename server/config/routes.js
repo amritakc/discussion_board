@@ -14,7 +14,10 @@ module.exports = function(app){
 	app.post('/createanswer', function(req,res){
 		answers.create(req,res)
 	})
-	app.post('/createlike', function(req,res){
+	app.post('/createlike/:id', function(req,res){
 		answers.like(req,res)
+	})
+	app.post('/createdislike/:id', function(req,res){
+		answers.dislike(req,res)
 	})
 };

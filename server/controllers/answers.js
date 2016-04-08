@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Answer = mongoose.model('Answer');
 var Topic = mongoose.model('Topic');
-
+var User = mongoose.model('User');
 
 module.exports = (function() {
  return {
@@ -26,8 +26,9 @@ module.exports = (function() {
 	  	})
   	  },
   	like: function(req, res){
-   		console.log(req.body.answerid)
-   		Answer.update({_id:req.body.answerid}, {$inc: {num_like:1}, arrow:req.body.arrow}, function(err,results){
+  		console.log("hello")
+   		console.log(req.params.id)
+   		Answer.update({_id:req.params.id}, {$inc: {num_like:1}, arrow:"like"}, function(err,results){
 		  		if(err){
 		  			console.log("something went wrong")
 		  		}
@@ -38,7 +39,20 @@ module.exports = (function() {
 		  			}
 			  	})
   	  		},
-
+  	dislike: function(req, res){
+  		console.log("hello")
+   		console.log(req.params.id)
+   		Answer.update({_id:req.params.id}, {$inc: {num_dislike:1}, arrow:"dislike"}, function(err,results){
+		  		if(err){
+		  			console.log("something went wrong")
+		  		}
+		  		else{
+		  			console.log("successfully added a dislike!")
+		  			console.log(results)
+		  			res.json(results)
+		  			}
+			  	})
+  	  		},
 
 
 

@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Topic = mongoose.model('Topic');
 var Answer = mongoose.model('Answer');
-
+var User = mongoose.model('User');
 
 module.exports = (function() {
  return {

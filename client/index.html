@@ -86,12 +86,19 @@
 	    			})
 	    		}
 
-	    		factory.likeAnswer = function (like,callback){
-	    			console.log(like)
-	    			$http.post('/createlike', like).success(function(output){
+	    		factory.likeAnswer = function (like_id,callback){
+	    			console.log(like_id)
+	    			$http.post('/createlike/' + like_id).success(function(output){
 	    				callback(output)
 	    			})
 	    		}
+
+	    		factory.dislikeAnswer = function (dislike_id,callback){
+	    			console.log(dislike_id)
+	    			$http.post('/createdislike/' + dislike_id).success(function(output){
+	    				callback(output)
+	    			})
+	    		}	    		
 	    		return factory;
 	    	})  	
 
@@ -140,6 +147,8 @@
 	    		$scope.topics = [];
 	    		$scope.discussions = [];
 	    		$scope.answers = [];
+	    		$scope.comments = [];
+	    		var id = $routeParams.id; 
 
 	    		userFactory.getUsers(function(data){
 	    			$scope.users = data
@@ -149,7 +158,7 @@
 	    			// console.log(data)
 	    			$scope.topics = data;
 	    		})
-	    		topicFactory.showTopic($routeParams.id, function(data){
+	    		topicFactory.showTopic(id, function(data){
 	    			$scope.discussions = data;
 	    			console.log(data)
 	    		})
@@ -161,9 +170,26 @@
 		    			})
 	    			});
 	    		}
-	    		$scope.addLike = function(){
-	    			answerFactory.likeAnswer($scope.newAnswer, function(data){
-		    			topicFactory.showTopic($routeParams.id, function(data){
+	    		$scope.addComment = function(){
+	    			console.log($scope.newComment)
+	    			commentFactory.createComment($scope.newComment, function(data){
+		    		topicFactory.showTopic($routeParams.id, function(data){
+		    				$scope.discussions = data;
+		    				$scope.newComment= {};
+		    			})
+	    			});
+	    		}	    		
+	    		$scope.addLike = function(data){
+	    			answerFactory.likeAnswer(data, function(data){
+		    			topicFactory.showTopic(id, function(data){
+		    				$scope.discussions = data;
+		    				$scope.newAnswer= {};
+		    			})
+	    			});
+	    		}
+	    		$scope.addDislike = function(data){
+	    			answerFactory.dislikeAnswer(data, function(data){
+		    			topicFactory.showTopic(id, function(data){
 		    				$scope.discussions = data;
 		    				$scope.newAnswer= {};
 		    			})

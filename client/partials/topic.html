@@ -20,13 +20,20 @@
 	<div ng-repeat = "dis in discussions">
 		<div ng-repeat = "x in dis.answers">
 			<h6>{{x.user_name}}: {{x.text}}</h6>
-					<form>
-						<input type="hidden" class="form-control" ng-value = "newAnswer.answerid=x._id" >
-						<input type = "hidden" class = "form-control" ng-value = "newAnswer.arrow ='like'">
-						<button type="submit" class="btn btn-primary" ng-Click = "addLike()">Like</button>
-					</form>
 
-			<p>Dislikes:{{x.num_dislike}}|| Number of likes:{{x.num_like}}</p>
+				<button type="submit" class="btn btn-primary" ng-Click = "addLike(x._id)">Like</button>
+				<button type="submit" class="btn btn-primary" ng-Click = "addDislike(x._id)">Dislike</button>
+
+<!-- 				<div class = "form-group col-md-4">
+					<input type="hidden" class="form-control" ng-value = "newComment.comment=discussions[0]._id" >
+					<input type="hidden" class="form-control" ng-value = "newComment.user_name=current_user" >
+					<label for="answer">Answer:</label>
+					<p><input type = "text" class = "form-control" rows = "5" ng-model = "newComment.comment"></p>
+					<button type="submit" class="btn btn-primary" ng-Click = "addComment()">Comment</button>
+				</div> -->
+
+
+				<p>Dislikes:{{x.num_dislike}}|| Number of likes:{{x.num_like}}</p>
 
 		</div>
 	</div>
