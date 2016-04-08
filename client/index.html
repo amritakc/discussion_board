@@ -108,7 +108,7 @@
 		    		factory.createComment = function (comment,callback){
 		    			// console.log(comment)
 		    			$http.post('/createcomment', comment).success(function(output){
-		    				console.log(output)
+		    				// console.log(output)
 		    				callback(output)
 		    			})
 	    			}
@@ -186,6 +186,7 @@
 	    		$scope.addComment = function(user_name, test){
 	    			commentFactory.createComment(test, function(data){
 		    		topicFactory.showTopic($routeParams.id, function(data){
+		    				console.log(data)
 		    				$scope.discussions = data;
 		    				$scope.newComment= {};
 		    			})

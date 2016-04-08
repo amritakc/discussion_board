@@ -26,13 +26,19 @@
 
 				<form>
 					<div class = "form-group col-md-4">
-						<input type="hidden" class="form-control" ng-value = "newComment.userid=x._id" >
-						<input type="hidden" class="form-control" ng-value = "newComment.user_name=current_user" >
+						<input type="hidden" class="form-control" ng-value = "newComment[x._id].userid=x._id" >
+						<input type="hidden" class="form-control" ng-value = "newComment[x._id].user_name=current_user" >
 						<label for="comment">Comment:</label>
-						<p><input type = "text" class = "form-control" rows = "5" ng-model = "newComment.text"></p>
-						<button type="submit" class="btn btn-primary" ng-Click = "addComment(x.user_name, newComment)">Comment</button>
+						<p><input type = "text" class = "form-control" rows = "5" ng-model = "newComment[x._id].text"></p>
+						<button type="submit" class="btn btn-primary" ng-Click = "addComment(x.user_name, newComment[x._id])">Comment</button>
 					</div>
 				</form>
+
+				<div ng-repeat = "y in x.comments">
+					
+							{{y.comment}}
+						
+				</div> 
 
 				<p>Dislikes:{{x.num_dislike}}|| Number of likes:{{x.num_like}}</p>
 

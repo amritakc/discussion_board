@@ -16,7 +16,16 @@ module.exports = (function() {
    	    })
     },
     show: function(req,res){
-   		Topic.find({_id:req.params.id}).populate('answers').exec(function (err, results){
+   		Topic.find({_id:req.params.id})
+   		.populate({
+					path:'answers',
+					model:'Answer',
+					populate:{
+						path:'comments',
+						model:'Comment'
+					}
+				})
+			.exec(function (err, results){
    			if(err) {
 	         	console.log(err);
 	       	} else {
