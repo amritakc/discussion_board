@@ -35,14 +35,15 @@ module.exports = (function() {
    	    })
     },
    create: function(req, res){
-   		User.update({user_name:req.body.user_name}, {$inc: {num_like:1}},function(err, results){
+   	// console.log("create topics controller", req.body.user_name)
+   		User.update({user_name:req.body.user_name}, {$inc: {total_topics:1}},function(err, results){
 		  	var topic = new Topic({title:req.body.title, description: req.body.description, user_name:req.body.user_name, category:req.body.category})
 		  	topic.save(function(err,results){
 		  		if(err){
 		  			console.log("something went wrong" + results.message)
 		  		}
 		  		else{
-		  			console.log("successfully add a topic!")
+		  			console.log("successfully add a topic!" + results)
 		  			res.json(results)
 		  		}
 		  	 })

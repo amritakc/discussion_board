@@ -145,10 +145,10 @@
 
 	    		topicFactory.getTopics(function(data){
 	    			$scope.topics = data;
-
 	    		})
 
 	    		$scope.addTopic = function(data){
+	    			console.log($scope.newTopic)
 	    			topicFactory.createTopic($scope.newTopic, function(data){
 	    				topicFactory.getTopics(function(data){
 	    					$scope.newTopic = {};

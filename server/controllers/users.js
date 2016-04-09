@@ -10,12 +10,12 @@ module.exports = (function() {
 	  	user.save(function(err,results){
 	  		if(err){
 	  			console.log("something went wrong")
-	  		}
+	  		}	
 	  		else{
-	  			// console.log("successfully add a user!")
+	  			console.log("successfully add a user!")
 	  			res.json(results)
-	  		}
-	  	 })
+	  		}	
+	  	})
   	  },
 	}
 })();
