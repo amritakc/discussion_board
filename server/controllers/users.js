@@ -17,5 +17,15 @@ module.exports = (function() {
 	  		}	
 	  	})
   	  },
+  	show: function(req,res){
+   		User.findOne({user_name:req.params.name}, function(err,results){
+   			if(err) {
+	         	console.log(err);
+	       	} else {
+	       		// console.log("found the topic!")
+	         	res.json(results);
+	       }
+   	    })
+      },
 	}
 })();

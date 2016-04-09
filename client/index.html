@@ -15,7 +15,7 @@
 		        .when('/',{
 		            templateUrl: 'partials/login.html'
 		        })
-		         .when('/user',{
+		         .when('/user/:name',{
 		            templateUrl: 'partials/profile.html'
 		        })
 		         .when('/topic/:id',{
@@ -39,11 +39,17 @@
 	    		}
 	    		factory.createUser = function(user){
 	    			users.push(user)
-	    			console.log(user.name + " in factory")
+	    			// console.log(user.name + " in factory")
 	    			$http.post('/createuser', user).success(function(output){
-	    				console.log(output)
+	    				// console.log(output)
 	    			})
 	    		}
+	    		factory.showUser = function (id, callback){
+	    			console.log(id, "showUser in userFactory")
+	    			$http.get('/showuser/'+ id).success(function(output){
+	    				callback(output)
+	    			})
+	    		}    		
 	    		return factory;
 	    	})
 
@@ -68,6 +74,7 @@
 	    				callback(output)
 	    			})
 	    		}
+    		
 	    		return factory;
 	    	})	  
 
@@ -118,7 +125,7 @@
 	    			return factory;
 	    		})
 
-	    	myAppDB.controller('usersController', function($scope, $location, userFactory){
+	    	myAppDB.controller('usersController', function($scope, $location, userFactory, $routeParams){
 	    		$scope.users = [];
 	    		userFactory.getUsers(function(data){
 	    			$scope.users = data
@@ -212,6 +219,17 @@
 	    			});
 	    		}
 	    	})
+
+	    	myAppDB.controller('profilesController', function($scope, $location, userFactory, $routeParams){
+	    		var name = $routeParams.name; 
+	    		$scope.user = [];
+	    		// console.log(name)
+	    		userFactory.showUser(name, function(data){
+	    			console.log(data)
+	    			$scope.user = data
+	    		})
+	    	})
+
 
 	    </script>
 	</head>

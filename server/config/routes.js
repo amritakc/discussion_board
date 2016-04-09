@@ -28,4 +28,7 @@ module.exports = function(app){
 	app.post('/createuser', function(req,res){
 		users.create(req,res)
 	})
+	app.get('/showuser/:name', function(req,res){
+		users.show(req,res)
+	})
 };
