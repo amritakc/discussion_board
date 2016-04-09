@@ -3,9 +3,9 @@ var Schema = mongoose.Schema
 
 var UserSchema = new mongoose.Schema({ 
   user_name: String,
-  total_topics: Number,
-  total_posts: Number,
-  total_comments:Number
+  total_topics: {type:Number, default:0},
+  total_posts: {type:Number, default:0},
+  total_comments: {type:Number, default:0}
 });
 
 mongoose.model('User', UserSchema);

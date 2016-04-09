@@ -30,7 +30,7 @@
 		      });
 
 
-	    	myAppDB.factory('userFactory',function (){
+	    	myAppDB.factory('userFactory',function ($http){
 	    		var users = []
 	    		var factory = {}
 
@@ -40,6 +40,9 @@
 	    		factory.createUser = function(user){
 	    			users.push(user)
 	    			console.log(user.name + " in factory")
+	    			$http.post('/createuser', user).success(function(output){
+	    				console.log(output)
+	    			})
 	    		}
 	    		return factory;
 	    	})

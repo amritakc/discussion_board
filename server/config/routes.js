@@ -1,6 +1,7 @@
 var topics = require('./../controllers/topics.js')
 var answers = require('./../controllers/answers.js')
 var comments = require('./../controllers/comments.js')
+var users = require('./../controllers/users.js')
 
 module.exports = function(app){
 	app.get('/topics', function(req,res){
@@ -23,5 +24,8 @@ module.exports = function(app){
 	})
 	app.post('/createcomment', function(req,res){
 		comments.create(req,res)
+	})
+	app.post('/createuser', function(req,res){
+		users.create(req,res)
 	})
 };

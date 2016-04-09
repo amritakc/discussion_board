@@ -35,12 +35,10 @@
 				</form>
 
 				<div ng-repeat = "y in x.comments">
-					
-							{{y.comment}}
-						
+					{{y.user_name}}: {{y.comment}}
 				</div> 
 
-				<p>Dislikes:{{x.num_dislike}}|| Number of likes:{{x.num_like}}</p>
+				<p>Number of likes:{{x.num_like}}|| Dislikes:{{x.num_dislike}}</p>
 
 		</div>
 	</div>
